@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Body
 from src.predictor.predictor_middleware import load_model,get_prediction
+from src.models.data_manager import init_database
 import datetime
 
 predictor_api_router=APIRouter(prefix="/predictor")
@@ -8,6 +9,11 @@ predictor_api_router=APIRouter(prefix="/predictor")
 async def predictor_predict():
     prediction=get_prediction()
     return ({
-        "date": (datetime.datetime.now()+datetime.timedelta(1)).strftime("%Y-%m-%d"),
+        "date": (datetime.datetime.now()).strftime("%Y-%m-%d"),
         "prediction":int(prediction)
     })
+
+
+
+
+

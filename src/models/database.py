@@ -1,15 +1,9 @@
-"""coding=utf-8."""
- 
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
- 
-SQLALCHEMY_DATABASE_URL = "postgresql://postgres:root@localhost:5432/cov_pred"
- 
-engine = create_engine(
-    SQLALCHEMY_DATABASE_URL
-)
- 
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
- 
-Base = declarative_base()
+from mongoengine import connect, disconnect
+
+
+def init_database():
+    connect(host=(
+        f'mongodb+srv://root:root@cluster0.7mevyjk.mongodb.net/covid_prediction?retryWrites=true&w=majority'
+    ))
+def shutdown_database():
+    disconnect()
