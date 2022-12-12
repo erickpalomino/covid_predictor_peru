@@ -9,6 +9,7 @@ import tensorflow as tf
 from tensorflow import keras
 from src.models.models import InfectionDay,PredictionInfo
 from src.models.data_manager import *
+from src.model_manager.model_manager import get_model
 
 format_str = '%Y-%m-%d' # The format
 
@@ -17,7 +18,8 @@ def format_date(datestr):
 
 
 def load_model():
-    model = keras.models.load_model('./models/model.h5')
+    file=get_model()
+    model = keras.models.load_model(file.name)
     return model
 
 def get_prediction():
