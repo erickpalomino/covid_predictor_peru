@@ -19,12 +19,15 @@ def format_date(datestr):
 
 def load_model():
     file=get_model()
+    print("model path: ",file.name)
     model = keras.models.load_model(file.name)
     return model
 
 def get_prediction():
     model=load_model()
-    prediction_input=reshape_input_database(datetime.datetime.now()-datetime.timedelta(1))
+    os.environ['TZ'] = 'America/Lima'
+    #prediction_input=reshape_input_database(datetime.datetime.now()-datetime.timedelta(1))
+    prediction_input=reshape_input_database(datetime.datetime.now())
     prediction_info=PredictionInfo.objects.order_by('-id').first()
     prediction_input=scale_array(prediction_input,prediction_info.min,prediction_info.max)
     print(prediction_input)
@@ -35,6 +38,20 @@ def get_prediction():
     ar_pred=ar_pred.reshape(-1)[0]
     return ar_pred
 
+
+def predict(date):
+    model=load_model()
+    os.environ['TZ'] = 'America/Lima'
+    prediction_input=reshape_input_database(date)
+    prediction_info=PredictionInfo.objects.order_by('-id').first()
+    prediction_input=scale_array(prediction_input,prediction_info.min,prediction_info.max)
+    print(prediction_input)
+    prediction=model.predict(prediction_input)
+    print(prediction)
+    ar_pred=inv_scale_array(prediction,prediction_info.min,prediction_info.max)
+    print(ar_pred)
+    ar_pred=ar_pred.reshape(-1)[0]
+    return ar_pred
 
 def min_max_scale(x,min,max):
   return (x-min)/(max-min)

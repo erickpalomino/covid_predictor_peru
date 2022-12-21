@@ -6,6 +6,7 @@ infection_api_router=APIRouter(prefix="/infection")
 
 @infection_api_router.get('/7days')
 async def get_7_days_infection():
+    print(datetime.datetime.now())
     return (get_infection_7_days(datetime.datetime.now()))
 
 @infection_api_router.get('/get/day')
