@@ -29,3 +29,10 @@ class PredictionInfo(Document):
     max= IntField()
     min= IntField()
     
+class ModelInfo(Document):
+    model_id=StringField(primary_key=True)
+    model_name=StringField()
+
+class ActualModel(Document):
+    id=IntField(primary_key=True,default=1)
+    model_id=StringField(required=True)
