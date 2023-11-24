@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Body
 from src.infection.infection_middleware import *
-from src.models.data_manager import init_database
+from src.models.data_manager import update_database
 
 infection_api_router=APIRouter(prefix="/infection")
 
@@ -15,7 +15,7 @@ async def get_infection_day(date):
 
 @infection_api_router.get('/update')
 async def predictor_update():
-    return (init_database())
+    return (update_database())
 
 @infection_api_router.get('/7days/predict')
 async def get_7_days_predict():

@@ -5,7 +5,7 @@ import pandas
 from pandas.core.frame import DataFrame
 
 
-def init_database():
+def update_database():
     dataset = pandas.read_csv('https://covid.ourworldindata.org/data/owid-covid-data.csv', engine='python')
     ds_filtered=filter_country_fill_data(dataset,'Peru')
     max=ds_filtered['new_cases_smoothed'].max()
@@ -19,6 +19,7 @@ def init_database():
         infection_real=int(row['new_cases'])
       )
       infection_day.save()
+    print("DB ready")
     return {"message":"DB ready"}
 
 

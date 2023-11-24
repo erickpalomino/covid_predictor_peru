@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from src.api.predictor_api import predictor_api_router
 from src.api.infection_api import infection_api_router
 from src.api.model_manager_api import model_api_router
-from src.models.database import init_database
+from src.models.database import setup_database
 
 app = FastAPI()
 origins = ["*"]
@@ -22,7 +22,7 @@ app.include_router(model_api_router)
 
 @app.on_event("startup")
 async def init_config():
-    init_database()
+    setup_database()
 
 @app.get("/")
 async def root():
