@@ -6,7 +6,9 @@ from pandas.core.frame import DataFrame
 
 
 def update_database():
+    print("Downloading CSV ...")
     dataset = pandas.read_csv('https://covid.ourworldindata.org/data/owid-covid-data.csv', engine='python')
+    print("Csv downloaded")
     ds_filtered=filter_country_fill_data(dataset,'Peru')
     max=ds_filtered['new_cases_smoothed'].max()
     min=ds_filtered['new_cases_smoothed'].min()
@@ -18,6 +20,7 @@ def update_database():
         infection_smoothed=int(row['new_cases_smoothed']),
         infection_real=int(row['new_cases'])
       )
+      print(f"Saved infection Day {infection_day}")
       infection_day.save()
     print("DB ready")
     return {"message":"DB ready"}

@@ -1,0 +1,5 @@
+export DB_NAME=
+export DB_HOST=
+export DB_USER=
+export DB_PASSWORD=
+export GOOGLE_APPLICATION_CREDENTIALS=
